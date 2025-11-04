@@ -2,8 +2,6 @@ package testClasses;
 
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
 
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
@@ -20,13 +18,10 @@ import base.BaseTest;
 
 public class GalenLayoutTestTablets extends BaseTest 
 {
-    private List<GalenTestInfo> tests;
-    
     @BeforeMethod
     public void setUpGalenTest() {
         String baseUrl = ConfigReader.getProperty("base.url");
         driver.get(baseUrl);
-        tests = new LinkedList<>();
         extentTest.info("Navigated to: " + baseUrl + " for Galen layout testing");
     }
 
@@ -46,7 +41,7 @@ public class GalenLayoutTestTablets extends BaseTest
             // Create Galen test info
             GalenTestInfo test = GalenTestInfo.fromString("Login Page Tablet Layout");
             test.getReport().layout(layoutReport, "Check login page layout on tablet");
-            tests.add(test);
+            galenTests.add(test);
             
             // Verify no layout errors
             if (layoutReport.errors() > 0) {

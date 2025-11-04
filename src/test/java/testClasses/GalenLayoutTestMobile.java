@@ -2,8 +2,6 @@ package testClasses;
 
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
 
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
@@ -12,7 +10,6 @@ import org.testng.annotations.Test;
 import com.aventstack.extentreports.Status;
 import com.galenframework.api.Galen;
 import com.galenframework.reports.GalenTestInfo;
-import com.galenframework.reports.HtmlReportBuilder;
 import com.galenframework.reports.model.LayoutReport;
 import com.utils.ConfigReader;
 import com.utils.ErrorFileWriter;
@@ -21,13 +18,10 @@ import base.BaseTest;
 
 public class GalenLayoutTestMobile extends BaseTest
 {
-    private List<GalenTestInfo> tests;
-    
     @BeforeMethod
     public void setUpGalenTest() {
         String baseUrl = ConfigReader.getProperty("base.url");
         driver.get(baseUrl);
-        tests = new LinkedList<>();
         extentTest.info("Navigated to: " + baseUrl + " for Galen layout testing");
     }
 
@@ -47,7 +41,7 @@ public class GalenLayoutTestMobile extends BaseTest
             // Create Galen test info
             GalenTestInfo test = GalenTestInfo.fromString("Login Page Mobile Layout");
             test.getReport().layout(layoutReport, "Check login page layout on mobile");
-            tests.add(test);
+            galenTests.add(test);
             
             // Verify no layout errors
             if (layoutReport.errors() > 0) {
@@ -92,15 +86,6 @@ public class GalenLayoutTestMobile extends BaseTest
             extentTest.log(Status.FAIL, "Failed to run Galen layout test: " + e.getMessage());
             logger.error("Failed to run Galen layout test", e);
             Assert.fail("Failed to run Galen layout test: " + e.getMessage());
-        } finally {
-            // Generate Galen HTML report
-            try {
-                new HtmlReportBuilder().build(tests, "target/galen-reports");
-                extentTest.info("Galen HTML report generated at: target/galen-reports");
-                logger.info("Galen HTML report generated");
-            } catch (IOException e) {
-                logger.error("Failed to generate Galen HTML report", e);
-            }
         }
     }
 

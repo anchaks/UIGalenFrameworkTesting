@@ -6,17 +6,24 @@ import com.utils.ExtentReportManager;
 import com.utils.ScreenshotUtils;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
+import com.galenframework.reports.GalenTestInfo;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
 
+import java.util.LinkedList;
+import java.util.List;
+
 public class BaseTest {
     
     protected static final Logger logger = LogManager.getLogger(BaseTest.class);
     protected WebDriver driver;
     protected ExtentTest extentTest;
+    
+    // Shared list for all Galen test results
+    protected static final List<GalenTestInfo> galenTests = new LinkedList<>();
     
     @BeforeClass
     public void setUpClass() {
@@ -71,6 +78,17 @@ public class BaseTest {
     
     @AfterSuite
     public void tearDownSuite() {
+        // Generate Galen HTML report with all test results
+        if (!galenTests.isEmpty()) {
+            try {
+                com.galenframework.reports.HtmlReportBuilder reportBuilder = new com.galenframework.reports.HtmlReportBuilder();
+                reportBuilder.build(galenTests, "target/galen-reports");
+                logger.info("Galen HTML report generated at: target/galen-reports");
+            } catch (Exception e) {
+                logger.error("Failed to generate Galen HTML report", e);
+            }
+        }
+        
         ExtentReportManager.flush();
         logger.info("Test suite execution completed");
     }

@@ -23,8 +23,8 @@ A comprehensive Selenium with Java automation framework using PageFactory, TestN
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/anchaks/selenium-automation-framework.git
-   cd selenium-automation-framework
+   git clone https://github.com/anchaks/UIGalenFrameworkTesting.git
+   cd UIGalenFramework
    ```
 
 2. **Install dependencies:**

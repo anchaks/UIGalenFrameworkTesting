@@ -107,6 +107,16 @@ mvn test -DthreadCount=3
   - Cross-device responsive testing
   - Element positioning verification
 
+### Layout Error Reports
+- **Location**: `test-output/layout-errors/`
+- **Format**: Timestamped text files with detailed error information
+- **Naming Convention**: `GalenLayoutErrors_{TestType}_{yyyy-MM-dd_HH-mm-ss}.txt`
+- **Features**:
+  - Detailed layout validation errors
+  - Actual vs expected values
+  - Timestamped execution records
+  - Easy troubleshooting and debugging
+
 ### Logs
 - **Location**: `logs/automation.log`
 - **Format**: Structured logging with timestamps
@@ -158,14 +168,8 @@ selenium-automation-framework/
 
 ## 🧪 Test Cases
 
-### Login Tests (`LoginTest.java`)
-- ✅ Valid login with correct credentials
-- ✅ Invalid login with wrong credentials
-- ✅ Login page elements verification
-- ✅ Error message validation
-
 ### Layout Tests (`GalenLayoutTest.java`)
-- ✅ Desktop layout validation (1024x768)
+- ✅ Desktop layout validation (1920x1080)
 - ✅ Tablet layout validation (768x1024)
 - ✅ Mobile layout validation (375x667)
 - ✅ Responsive element positioning
@@ -201,6 +205,12 @@ selenium-automation-framework/
 - File-based screenshot capture
 - Automatic screenshot attachment
 - Error handling
+
+### ErrorFileWriter
+- Timestamped error file generation
+- Detailed layout validation errors
+- Automatic error logging to text files
+- Clean separation of error reports
 
 ## 📈 Best Practices Implemented
 

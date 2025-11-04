@@ -15,8 +15,18 @@ import org.testng.annotations.Test;
 import java.io.IOException;
 import java.util.Arrays;
 
+/**
+ * GalenLayoutTestDesktop - Test class for validating page layout on desktop viewports.
+ * Uses Galen Framework to check if UI elements are positioned and sized correctly
+ * according to specifications defined in .gspec files.
+ * Tests responsive design for desktop screen sizes (1920x1080).
+ */
 public class GalenLayoutTestDesktop extends BaseTest {
     
+    /**
+     * Setup method executed before each test in this class
+     * Navigates to the base URL to prepare for layout testing
+     */
     @BeforeMethod
     public void setUpGalenTest() {
         String baseUrl = ConfigReader.getProperty("base.url");
@@ -24,26 +34,34 @@ public class GalenLayoutTestDesktop extends BaseTest {
         extentTest.info("Navigated to: " + baseUrl + " for Galen layout testing");
     }
     
+    /**
+     * Tests the login page layout on desktop viewport (1920x1080)
+     * Validates element positioning, sizing, alignment, and spacing
+     * according to the specifications in login_page.gspec file
+     * 
+     * Priority 1 - Runs first in the test suite
+     */
     @Test(priority = 1, description = "Verify login page layout on desktop")
     public void testLoginPageLayoutDesktop() {
         extentTest.info("Starting desktop layout test");
         
         try {
-            // Set desktop viewport
+            // Set desktop viewport dimensions
             driver.manage().window().setSize(new org.openqa.selenium.Dimension(1920, 1080));
             
-            // Run Galen test
+            // Run Galen layout validation with "desktop" tag from .gspec file
             LayoutReport layoutReport = Galen.checkLayout(driver, 
                 "src/test/java/resources/galen_specs/login_page.gspec", 
-                Arrays.asList("desktop"));
+                Arrays.asList("desktop")); // Uses desktop-specific specs
             
-            // Create Galen test info
+            // Create Galen test info for HTML report generation
             GalenTestInfo test = GalenTestInfo.fromString("Login Page Desktop Layout");
             test.getReport().layout(layoutReport, "Check login page layout on desktop");
-            galenTests.add(test);
+            galenTests.add(test); // Add to shared list for final report
             
-            // Verify no layout errors
+            // Verify no layout errors - fail test if any errors found
             if (layoutReport.errors() > 0) {
+                // Log detailed error information to console
                 logger.error("\n========================================");
                 logger.error("DESKTOP LAYOUT VALIDATION FAILED");
                 logger.error("Total Errors: " + layoutReport.errors());
@@ -53,6 +71,7 @@ public class GalenLayoutTestDesktop extends BaseTest {
                 // Print detailed error information with actual values
                 layoutReport.getValidationErrorResults().forEach(error -> {
                     logger.error("\n[ERROR] Spec: " + error.getSpec().toText());
+                    // Show actual vs expected values to help fix the specs
                     if (error.getError() != null && error.getError().getMessages() != null) {
                         error.getError().getMessages().forEach(msg -> 
                             logger.error("  → " + msg)
@@ -62,16 +81,18 @@ public class GalenLayoutTestDesktop extends BaseTest {
                 logger.info("\n💡 TIP: Update your .gspec file with the actual values shown above");
                 logger.error("========================================\n");
                 
-                // Write errors to file
+                // Write errors to timestamped file for reference
                 String errorFile = ErrorFileWriter.writeErrors(layoutReport, "Desktop");
                 if (errorFile != null) {
                     logger.info("Errors written to: " + errorFile);
                     extentTest.info("Errors written to: " + errorFile);
                 }
                 
+                // Log failure in ExtentReports and fail the test
                 extentTest.log(Status.FAIL, "Layout validation failed with " + layoutReport.errors() + " errors");
                 Assert.fail("Layout validation failed with " + layoutReport.errors() + " errors");
             } else {
+                // All layout checks passed
                 logger.info("\n========================================");
                 logger.info("✅ DESKTOP LAYOUT VALIDATION PASSED");
                 logger.info("No errors found - All values are matching!");
@@ -82,6 +103,7 @@ public class GalenLayoutTestDesktop extends BaseTest {
             logger.info("Desktop layout test completed successfully");
             
         } catch (IOException e) {
+            // Handle Galen framework errors
             extentTest.log(Status.FAIL, "Failed to run Galen layout test: " + e.getMessage());
             logger.error("Failed to run Galen layout test", e);
             Assert.fail("Failed to run Galen layout test: " + e.getMessage());

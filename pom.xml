@@ -1,21 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Maven Project Object Model (POM) file
+    Defines project dependencies, build configuration, and metadata
+    for the Selenium + Galen Framework automation project
+-->
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <!-- Project Coordinates - Uniquely identifies this project -->
     <groupId>com.example</groupId>
     <artifactId>geln_framework_demo</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
+    <!-- Project Metadata -->
     <name>Selenium Automation Framework</name>
     <description>Comprehensive Selenium with Java automation framework using PageFactory, TestNG, Galen Framework, ExtentReports with base64 screenshots, and Log4j2 logging</description>
 
+    <!-- Maven Properties - Centralized version management -->
     <properties>
+        <!-- Java version configuration -->
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        
+        <!-- Dependency versions -->
         <selenium.version>4.15.0</selenium.version>
         <testng.version>7.8.0</testng.version>
         <webdrivermanager.version>5.6.2</webdrivermanager.version>
@@ -27,68 +38,70 @@
     </properties>
 
      <dependencies>
-        <!-- Selenium WebDriver -->
+        <!-- Selenium WebDriver - Core browser automation library -->
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
             <version>${selenium.version}</version>
         </dependency>
 
-        <!-- WebDriver Manager -->
+        <!-- WebDriver Manager - Automatically manages browser driver binaries -->
         <dependency>
             <groupId>io.github.bonigarcia</groupId>
             <artifactId>webdrivermanager</artifactId>
             <version>${webdrivermanager.version}</version>
         </dependency>
 
-        <!-- TestNG -->
+        <!-- TestNG - Testing framework for test execution and assertions -->
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
             <version>${testng.version}</version>
         </dependency>
 
-        <!-- ExtentReports -->
+        <!-- ExtentReports - HTML test reporting library with screenshots -->
         <dependency>
             <groupId>com.aventstack</groupId>
             <artifactId>extentreports</artifactId>
             <version>${extentreports.version}</version>
         </dependency>
 
-        <!-- Galen Framework -->
+        <!-- Galen Framework - Layout and responsive design testing -->
         <dependency>
             <groupId>com.galenframework</groupId>
             <artifactId>galen-java-support</artifactId>
             <version>${galen.version}</version>
         </dependency>
 
-        <!-- Apache HttpClient for Galen -->
+        <!-- Apache HttpClient - Required dependency for Galen Framework -->
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
             <version>4.5.14</version>
         </dependency>
 
-        <!-- Log4j2 -->
+        <!-- Log4j2 Core - Logging framework for test execution logs -->
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-core</artifactId>
             <version>${log4j.version}</version>
         </dependency>
+        
+        <!-- Log4j2 API - Logging API interface -->
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-api</artifactId>
             <version>${log4j.version}</version>
         </dependency>
 
-        <!-- Commons IO -->
+        <!-- Commons IO - File and stream utilities for screenshots -->
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
             <version>${commons-io.version}</version>
         </dependency>
 
-        <!-- JSON processing -->
+        <!-- Jackson - JSON processing library -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
@@ -96,8 +109,10 @@
         </dependency>
     </dependencies>
 
+    <!-- Build Configuration -->
     <build>
         <plugins>
+            <!-- Maven Compiler Plugin - Compiles Java source code -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -108,11 +123,13 @@
                 </configuration>
             </plugin>
 
+            <!-- Maven Surefire Plugin - Executes tests using TestNG -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${maven-surefire-plugin.version}</version>
                 <configuration>
+                    <!-- Points to TestNG suite XML file for test execution -->
                     <suiteXmlFiles>
                         <suiteXmlFile>testng.xml</suiteXmlFile>
                     </suiteXmlFiles>

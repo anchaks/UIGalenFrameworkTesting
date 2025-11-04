@@ -1,9 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+    TestNG Suite Configuration File
+    Defines which test classes to execute and their organization
+    This file is referenced by Maven Surefire plugin to run tests
+-->
 <suite name="SeleniumAutomationSuite">
+    <!-- 
+        Test suite: GalenLayoutTests
+        Groups all Galen Framework layout validation tests
+        Tests are executed in priority order (1=Desktop, 2=Tablet, 3=Mobile)
+    -->
     <test name="GalenLayoutTests">
         <classes>
+            <!-- Desktop layout validation test - Priority 1 -->
             <class name="testClasses.GalenLayoutTestDesktop"/>
+            
+            <!-- Tablet layout validation test - Priority 2 -->
             <class name="testClasses.GalenLayoutTestTablets"/>
+            
+            <!-- Mobile layout validation test - Priority 3 -->
             <class name="testClasses.GalenLayoutTestMobile"/>
         </classes>
     </test>

@@ -1,0 +1,66 @@
+@objects
+    username-field      #username
+    password-field      #password
+    login-button        #submit
+    page-title          css h2
+    form-container      css form
+
+= Login Page Layout =
+    @on desktop
+        username-field:
+            visible
+            width 600px
+            height 48px
+        
+        password-field:
+            visible
+            width 600px
+            height 48px
+            below username-field 59px
+        
+        login-button:
+            visible
+            width 100 to 130px
+            height 54px
+            below password-field 10 to 30px
+        
+        page-title:
+            visible
+            text is "Test login"
+            css font-size is "46px"
+
+    @on tablet
+        username-field:
+            visible
+            width 706px
+            height 30 to 50px
+        
+        password-field:
+            visible
+            width 720px
+            height 30 to 50px
+            below username-field 10 to 30px
+        
+        login-button:
+            visible
+            width 128px
+            height 54px
+            below password-field 10 to 30px
+
+    @on mobile
+        username-field:
+            visible
+            width 200 to 300px
+            height 30 to 50px
+        
+        password-field:
+            visible
+            width 200 to 300px
+            height 30 to 50px
+            below username-field 10 to 30px
+        
+        login-button:
+            visible
+            width 100 to 150px
+            height 30 to 50px
+            below password-field 10 to 30px

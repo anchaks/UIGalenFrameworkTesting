@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="SeleniumAutomationSuite">
+    <test name="GalenLayoutTests">
+        <classes>
+            <class name="testClasses.GalenLayoutTestDesktop"/>
+            <class name="testClasses.GalenLayoutTestTablets"/>
+            <class name="testClasses.GalenLayoutTestMobile"/>
+        </classes>
+    </test>
+</suite>
